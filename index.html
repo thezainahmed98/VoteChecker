@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!-- Assignment 8 : Zain Ahmed -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="assignment8_style.css">   
+  <title>Vote Checker</title>
+</head>
+<body>
+    <h2>Vote Checker</h2>
+    <img alt="Uncle Sam Vote Poster" src="uncle_sam_vote.jpg" class="main-image"> 
+    <form id="voterInfo"  class="form-style-classic">
+        <p><label for="txtAge">What year were you born in?</label>
+        <input type="text" id="txtAge" size="4" /></p>
+
+        <p><label for="selRegistered">Are you registered to vote?&nbsp;&nbsp;</label>
+        <select id="selRegistered"> 
+            <option value="none">--</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select></p>
+
+        <p><label for="selFelon">Are you a convicted felon?&nbsp;</label>
+        <select id="selFelon"> 
+            <option value="none">--</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select></p>
+        
+        <p><label for="selCitizen">Are you a US Citizen?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <select id="selCitizen"> 
+            <option value="none">--</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select></p>
+
+    <p>*** 
+        <button type="button" onclick="checkVoterEligibility();">Can I Vote?</button>
+    ***</p>
+    </form>
+        
+    <!--   Output Divs   --> 
+    <div id="voteResults" class="results-output"></div>
+    <div id="outputImage" class="results-image-div" ></div>
+    <div id="changeBackColor" class="results-background-color"></div>
+    
+<script>
+  function checkVoterEligibility() {
+      
+      var birthYear, currentYear, legalYear, entireDate;  
+      var isRegistered, isFelon, isCitizen; 
+      var ouputSentence, outputImage, changeBackColor; 
+      
+      birthYear = document.getElementById("txtAge").value; 
+      birthYear = parseInt(birthYear); 
+
+      // Calculate the current year
+      entireDate = new Date();
+      currentYear = entireDate.getFullYear(); 
+      
+      legalYear = currentYear - 18; 
+      
+      isRegistered = document.getElementById("selRegistered").value; 
+      isFelon = document.getElementById("selFelon").value; 
+      isCitizen = document.getElementById("selCitizen").value;
+      
+      
+      if (birthYear <= legalYear && isRegistered == "yes" && isFelon == "no" && isCitizen == "yes") 
+      { 
+          outputSentence = "Congratulations, You Can Vote!";
+          outputImage = "<img alt='green tick' src='green_tick.png' class='results-output-image'>";
+          changeBackColor = "<style>body{background-color:#229E00;}</style>";
+          
+          document.getElementById("voteResults").innerHTML = outputSentence; 
+          document.getElementById("outputImage").innerHTML = outputImage; 
+          document.getElementById("changeBackColor").innerHTML = changeBackColor; 
+      }
+      else 
+      {
+          outputSentence = "I'm sorry, you are not eligible to vote!";
+          outputImage = "<img alt='red cross' src='red_cross.png' class='results-output-image'>";
+          changeBackColor = "<style>body{background-color:#FF4646;}</style>";
+          
+          document.getElementById("voteResults").innerHTML = outputSentence;
+          document.getElementById("outputImage").innerHTML = outputImage; 
+          document.getElementById("changeBackColor").innerHTML = changeBackColor; 
+      }
+  }
+</script>
+</body>
+</html>
